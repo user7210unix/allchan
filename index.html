@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AllChans</title>
+    <style>
+        @font-face {
+            font-family: 'Panton';
+            src: url('assets/fonts/panton.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            border: 0;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            font-size: calc(16px + (24 - 16) * (100vw - 320px) / (2560 - 320));
+        }
+
+        body {
+            font-family: 'Panton', sans-serif;
+            background-color: #170a45;
+            background-image: linear-gradient(rgba(0, 0, 0, 0) 37.5%, rgba(0, 0, 0, 0.5)), url('assets/images/bg.jpg');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            background-attachment: fixed;
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #b3eaf4 0%, #ffffff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            animation: slideIn 1s ease-out forwards;
+        }
+
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(18em, 1fr));
+            gap: 3rem;
+            padding: 3em 0;
+            perspective: 1000px;
+        }
+
+        .option {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.05);
+            box-shadow: inset 1px 1.5px 2px rgba(255, 255, 255, 0.6),
+                        inset 1px -0.5px 2px rgba(255, 255, 255, 0.3),
+                        0 0.6px 0.6px -1.25px rgba(0, 0, 0, 0.18),
+                        0 2.3px 2.3px -2.5px rgba(0, 0, 0, 0.16),
+                        0 10px 10px -3.75px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(45px);
+            -webkit-backdrop-filter: blur(45px);
+            border-radius: 30px;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: cardFadeIn 0.8s ease-out forwards;
+            animation-delay: calc(0.2s * var(--i));
+        }
+
+        .option:nth-child(1) { --i: 1; }
+        .option:nth-child(2) { --i: 2; }
+        .option:nth-child(3) { --i: 3; }
+
+        @keyframes cardFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .option:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: inset 1px 1.5px 2px rgba(255, 255, 255, 0.8),
+                        inset 1px -0.5px 2px rgba(255, 255, 255, 0.4),
+                        0 1px 1px -1.5px rgba(0, 0, 0, 0.2),
+                        0 4px 4px -3px rgba(0, 0, 0, 0.18),
+                        0 15px 15px -4.5px rgba(0, 0, 0, 0.1);
+        }
+
+        .option img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .option:hover img {
+            transform: scale(1.05);
+        }
+
+        .option a {
+            display: inline-block;
+            padding: 0.8em 1.5em;
+            background: rgba(179, 234, 244, 0.2);
+            border-radius: 30px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 1rem;
+        }
+
+        .option a:hover {
+            background: #b3eaf4;
+            color: #170a45;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .option p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #ffffff;
+            opacity: 0.9;
+            text-align: left;
+            padding: 0.5rem 0;
+        }
+
+        footer {
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-align: center;
+            animation: slideIn 1s ease-out forwards;
+            animation-delay: 0.8s;
+        }
+
+        footer a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(0, 0, 0, 0.05);
+            box-shadow: inset 1px 1.5px 2px rgba(255, 255, 255, 0.6),
+                        inset 1px -0.5px 2px rgba(255, 255, 255, 0.3),
+                        0 0.6px 0.6px -1.25px rgba(0, 0, 0, 0.18),
+                        0 2.3px 2.3px -2.5px rgba(0, 0, 0, 0.16),
+                        0 10px 10px -3.75px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(45px);
+            -webkit-backdrop-filter: blur(45px);
+            border-radius: 30px;
+            color: #ffffff;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        footer a:hover {
+            background: #b3eaf4;
+            color: #170a45;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .options {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .option {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .option p {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            body {
+                padding: 2rem;
+            }
+
+            .option img {
+                height: 180px;
+            }
+
+            .option p {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chan Overlay Nexus</h1>
+        <div class="options">
+            <div class="option">
+                <img src="assets/images/ichan.jpg" alt="iChan Placeholder">
+                <a href="#ichan">iChan Overlay</a>
+                <p>
+                    4chan is an anonymous imageboard known for its raw, unfiltered discussions. It hosts a variety of boards, including /b/ (random), /pol/ (politics), /a/ (anime), and /v/ (video games). Topics range from internet memes and pop culture to political debates and niche hobbies, making it a hub for diverse, often controversial content.
+                </p>
+            </div>
+            <div class="option">
+                <img src="assets/images/8kuk.jpg" alt="8kuk Placeholder">
+                <a href="#8kuk">8kuk Overlay</a>
+                <p>
+                    8kun, the successor to 8chan, is an imageboard platform emphasizing free speech. Key boards include /qresearch/ (conspiracy theories), /pnd/ (politics and news), and /v/ (video games). It focuses on alternative viewpoints, political discussions, and fringe topics, often attracting users seeking unmoderated spaces.
+                </p>
+            </div>
+            <div class="option">
+                <img src="assets/images/lainchan.jpg" alt="Lainchan Placeholder">
+                <a href="#lainchan">Lainchan Overlay</a>
+                <p>
+                    Lainchan is a technology-focused imageboard inspired by the anime Serial Experiments Lain. It features boards like /tech/ (programming and hardware), /cyb/ (cybersecurity), /lamer/ (general tech), and /anime/. Discussions center on coding, hacking, tech culture, and anime, appealing to enthusiasts and professionals alike.
+                </p>
+            </div>
+        </div>
+    </div>
+    <footer>
+        Crafted by <a href="https://github.com/user7210unix" target="_blank">user7210unix</a>
+    </footer>
+</body>
+</html>
